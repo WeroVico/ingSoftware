@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alta de empleados</title>
+    <style>
+        #mensaje, #correo-error {
+            color: #F00;
+            font-size: 20px;
+            padding: 10px;
+        }
+        #volver a {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+    </style>
+    <script src="jquery-3.3.1.min.js"></script>
+</head>
+<body bgcolor="#fcf1ef">
+    <table width="960" height="800" border="1" align="center" bgcolor="FFCDB2">
+        <tr>
+            <th colspan="2"><h2>Alta de empleados</h2></th>
+        </tr>
+        <form action="personal_salva.php" method="post" name="forma01" id="formulario1">  
+            <!-- Campos del formulario... -->
+            <tr align="center">
+                <td><h3>Selecciona tu rol</h3></td>
+                <td>
+                    <select name="rol" id="rol">
+                        <option value="0">Elige</option>
+                        <option value="1">Gerente</option>
+                        <option value="2">Ejecutivo</option> <!-- Corregido -->
+                    </select>
+                </td>            
+            </tr>
+            <th colspan="2" bgcolor="E5989B">
+                <input type="submit" value="Enviar datos" onclick="validar(); return false;">
+                <div id="mensaje"></div>
+                <div id="volver">
+                    <a href="personal_lista.php">Regresar al listado</a> <!-- Texto corregido -->
+                </div>
+            </th>
+        </form>
+    </table>
+
+    <script>
+        $(document).ready(function() {
+            $('#correo').blur(function() {
+                const correo = $(this).val().trim();
+                if (!correo) return;
+
+                $.ajax({
+                    url: 'verifica_correo.php',
+                    method: 'POST',
+                    data: { correo },
+                    dataType: 'json',
+                    success: (res) => {
+                        if (res.existe) {
+                            $('#correo-error').text(`El correo ${correo} ya existe`);
+                            setTimeout(() => $('#correo-error').text(''), 5000);
+                        }
+                    }
+                });
+            });
+        });
+
+        function validar() {
+            const campos = ['nombre', 'apellidos', 'correo', 'pass', 'rol'];
+            let valido = true;
+
+            campos.forEach(campo => {
+                const valor = document.forms['forma01'][campo].value.trim();
+                if (!valor || (campo === 'rol' && valor === "0")) valido = false;
+            });
+
+            if (valido) {
+                document.forma01.submit();
+            } else {
+                $('#mensaje').text('Faltan campos por llenar');
+                setTimeout(() => $('#mensaje').text(''), 5000);
+            }
+        }
+    </script>
+</body>
+</html>
