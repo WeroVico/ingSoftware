@@ -1,0 +1,32 @@
+# Sistema de Apartado de Lockers
+
+Este es un sistema web para gestionar el registro de usuarios y el apartado de lockers para una universidad.
+
+## Requisitos
+
+-   Servidor web (Apache, Nginx, etc.)
+-   PHP 7.4 o superior
+-   MySQL o MariaDB
+-   Composer para instalar dependencias de PHP.
+
+## Instalación
+
+1.  **Clonar el repositorio o copiar los archivos** en el directorio de tu servidor web.
+2.  **Crear la base de datos**: Importa el script SQL para crear la base de datos `lockers` y la tabla `usuarios`.
+3.  **Configurar la conexión a la base de datos**: Edita el archivo `funciones/conecta.php` con tus credenciales de la base de datos.
+4.  **Instalar PHPMailer**: Navega a la raíz de tu proyecto en la terminal y ejecuta el siguiente comando para instalar PHPMailer con Composer:
+
+    ```bash
+    composer require phpmailer/phpmailer
+    ```
+
+    Esto creará una carpeta `vendor` con los archivos necesarios.
+
+5.  **Configurar el envío de correos**: Abre el archivo `funciones/enviar_correo.php` y en la función `enviarCorreoBienvenida` introduce tu contraseña de aplicación de Google en la variable `$mail->Password`.
+
+## Uso
+
+-   La página principal es `index.php`, que muestra el formulario de inicio de sesión.
+-   Desde `index.php`, los nuevos usuarios pueden ir a `registro.php` para crear una cuenta.
+-   Una vez registrados, los usuarios recibirán un correo de bienvenida.
+-   Los usuarios pueden iniciar sesión con su correo y contraseña para acceder a `bienvenido.php`.
