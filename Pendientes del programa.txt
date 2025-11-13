@@ -1,0 +1,5 @@
+Al registrarse, iniciar sesión en automático
+Sistema de penalizaciones
+Concurrencia. Muchos usuarios intentando acceder a la vez
+Al anotarse en lista de espera, si se libera y luego se bloquea un locker, no se puede anotar en lista de espera otra vez
+Notificación tiempo casi terminado

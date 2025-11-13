@@ -1,0 +1,72 @@
+/* css/estilo.css (CORREGIDO) */
+
+/* Estilo para páginas con formularios centrados (Login y Registro) */
+.body-centrado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Estilos generales para todas las páginas */
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f2f5;
+    margin: 0;
+}
+
+.login-box, .register-box {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 400px; 
+    padding: 40px 20px;
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+}
+
+
+h2 {
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button, .logout-button {
+    width: 100%;
+    padding: 10px;
+    background: #28a745; /* Un verde agradable */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+#mensaje, .error-message {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.register-link {
+    margin-top: 20px;
+}
+
+.logo {
+    width: 10px;
+    height: 10px;
+}
