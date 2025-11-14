@@ -1,4 +1,5 @@
 <?php
+// info_reservacion.php
 require_once 'menu.php';
 require_once 'funciones/conecta.php';
 $con = conecta();
@@ -40,6 +41,9 @@ if ($reserva) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Información de Mi Locker</title>
+
+    <link rel="stylesheet" href="css/estilo.css?v=1.2">
+
 </head>
 <body>
     <div class="container mt-4">

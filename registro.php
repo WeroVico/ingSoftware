@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Registro de Usuario - Sistema de Lockers</title>
     <script src="jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet" href="css/estilo.css">
+
+    <link rel="stylesheet" href="css/estilo.css?v=1.2">
 </head>
 <body class="body-centrado">
     <div class="register-box">

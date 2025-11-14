@@ -1,4 +1,5 @@
 <?php
+// contacto.php
 require_once 'menu.php'; // Incluye el menú y la validación de sesión
 ?>
 <!DOCTYPE html>
@@ -8,44 +9,9 @@ require_once 'menu.php'; // Incluye el menú y la validación de sesión
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto y Redes Sociales</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
-        /* Estilos adicionales para los enlaces */
-        .social-link {
-            font-size: 1.2rem;
-            text-decoration: none;
-            display: flex; /* Usamos flex para alinear el logo y el texto */
-            align-items: center;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            color: white;
-            transition: transform 0.2s;
-        }
-        .social-link:hover {
-            transform: scale(1.03);
-            color: white;
-        }
-        
-        /* Colores para cada red social y correo */
-        .link-email { background: #6c757d; }
-        .link-x { background: #8894dbff; } /* Fondo negro para X */
-        .link-instagram { background: #E1306C; }
-        .link-github { background: #d19921ff; }
+    
+    <link rel="stylesheet" href="css/estilo.css?v=1.2">
 
-        /* Estilo para los íconos de Font Awesome */
-        .social-link i {
-            margin-right: 15px;
-            width: 24px; /* Ancho fijo para alinear texto */
-            text-align: center;
-        }
-
-        /* Nuevo estilo para el logo de imagen de X */
-        .logo-x {
-            width: 24px;   /* Ancho del logo */
-            height: 24px;  /* Alto del logo */
-            margin-right: 15px;
-        }
-    </style>
 </head>
 <body>
     <div class="container mt-4">

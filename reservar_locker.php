@@ -1,4 +1,5 @@
 <?php
+// reservar_locker.php
 require_once 'menu.php';
 require "funciones/conecta.php";
 $con = conecta();
@@ -27,38 +28,9 @@ $res_modulos = $con->query($sql_modulos);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservar un Locker</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
-        .locker-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-        .locker {
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .locker.disponible {
-            background-color: #d4edda; /* Verde */
-            border-color: #c3e6cb;
-        }
-        .locker.disponible:hover {
-            background-color: #28a745;
-            color: white;
-            transform: scale(1.1);
-        }
-        .locker.ocupado, .locker.mantenimiento {
-            background-color: #f8d7da; /* Rojo */
-            border-color: #f5c6cb;
-            cursor: not-allowed;
-            color: #721c24;
-        }
-    </style>
+    
+    <link rel="stylesheet" href="css/estilo.css?v=1.2">
+
 </head>
 <body>
     <div class="container mt-4">

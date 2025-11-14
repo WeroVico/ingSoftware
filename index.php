@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!--index.php-->
     <title>Iniciar Sesión - Sistema de Lockers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet" href="css/estilo.css">
+    
+    <link rel="stylesheet" href="css/estilo.css?v=1.2">
 </head>
 <body class="body-centrado">
     <div class="login-box" >

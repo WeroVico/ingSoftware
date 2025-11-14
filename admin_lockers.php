@@ -1,4 +1,5 @@
 <?php
+// admin_lockers.php
 require_once 'menu.php';
 require "funciones/conecta.php";
 
@@ -17,15 +18,9 @@ $res_modulos = $con->query($sql_modulos);
 <head>
     <meta charset="UTF-8">
     <title>Administrar Lockers</title>
-    <style>
-        /* Reutilizamos los estilos de reservar_locker.php */
-        .locker-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 15px; margin-top: 20px; }
-        .locker { padding: 15px; border: 1px solid #ddd; border-radius: 8px; text-align: center; font-weight: bold; cursor: pointer; transition: all 0.2s; }
-        .locker.disponible { background-color: #d4edda; }
-        .locker.ocupado { background-color: #f8d7da; }
-        .locker.mantenimiento { background-color: #fff3cd; }
-        .locker:hover { transform: scale(1.1); }
-    </style>
+    
+    <link rel="stylesheet" href="css/estilo.css?v=1.2">
+
 </head>
 <body>
     <div class="container mt-4">

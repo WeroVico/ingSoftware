@@ -1,6 +1,34 @@
-/* css/estilo.css (CORREGIDO) */
+/* css/estilo.css */
 
-/* Estilo para páginas con formularios centrados (Login y Registro) */
+/* ---------------------------------------------- */
+/* 🎨 PALETA DE COLORES 🎨 */
+/* ---------------------------------------------- */
+:root {
+    --fondo-principal: #1D3D47;
+    --fondo-secundario: #FFFFFF;
+    --texto-principal: #0F1E23;
+    --texto-secundario: #8BA0A6;
+    --exito: #27EA54;
+    --error: #DE414E;
+    --destacado: #2AB7CA;
+    --bordes: #26464F;
+
+    /* Colores neutrales (no estaban en tu paleta, pero son útiles) */
+    --warning: #ffc107;
+    --warning-texto: #856404;
+    --blanco: #FFFFFF;
+}
+
+/* ---------------------------------------------- */
+/* ESTILOS GENERALES Y LOGIN/REGISTRO */
+/* ---------------------------------------------- */
+body {
+    font-family: Arial, sans-serif;
+    background: var(--fondo-principal);
+    color: var(--texto-principal);
+    margin: 0;
+}
+
 .body-centrado {
     display: flex;
     justify-content: center;
@@ -8,27 +36,20 @@
     height: 100vh;
 }
 
-/* Estilos generales para todas las páginas */
-body {
-    font-family: Arial, sans-serif;
-    background: #f0f2f5;
-    margin: 0;
-}
-
 .login-box, .register-box {
-    background: white;
+    background: var(--fondo-secundario);
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0,0,0,0.1);
     text-align: center;
     width: 90%;
     max-width: 400px; 
     padding: 40px 20px;
-    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+    box-sizing: border-box;
 }
 
-
-h2 {
+h2, h3 {
     margin-bottom: 20px;
+    color: var(--texto-principal);
 }
 
 input[type="text"],
@@ -38,7 +59,7 @@ input[type="file"] {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    border: 1px solid #ddd;
+    border: 1px solid var(--bordes);
     border-radius: 5px;
     box-sizing: border-box;
 }
@@ -46,18 +67,22 @@ input[type="file"] {
 button, .logout-button {
     width: 100%;
     padding: 10px;
-    background: #28a745; /* Un verde agradable */
-    color: white;
+    background: var(--destacado); /* Color destacado */
+    color: var(--blanco);
     border: none;
     border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
     margin-top: 10px;
+    font-weight: bold;
+}
+button:hover, .logout-button:hover {
+    opacity: 0.9;
 }
 
 #mensaje, .error-message {
-    color: red;
+    color: var(--error);
     margin-top: 10px;
     text-align: center;
 }
@@ -66,7 +91,217 @@ button, .logout-button {
     margin-top: 20px;
 }
 
-.logo {
-    width: 10px;
-    height: 10px;
+/* ---------------------------------------------- */
+/* ESTILOS DEL MENÚ (menu.php) */
+/* ---------------------------------------------- */
+.navbar {
+    margin-bottom: 20px;
+}
+.nav-item{
+    margin-left: 5px;
+}
+
+/* ---------------------------------------------- */
+/* ESTILOS DE BIENVENIDO (bienvenido.php) */
+/* ---------------------------------------------- */
+.action-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    border: 1px solid var(--bordes);
+    border-radius: 15px;
+}
+.action-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+.action-card .card-body i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--texto-principal);
+}
+.jumbotron {
+    background: var(--bordes);
+    color: var(--fondo-secundario);
+    border-radius: 15px;
+    padding: 2rem 2rem;
+}
+
+/* ---------------------------------------------- */
+/* ESTILOS DE LOCKERS (reservar_locker.php y admin_lockers.php) */
+/* ---------------------------------------------- */
+.locker-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+.locker {
+    padding: 15px;
+    border: 1px solid var(--bordes);
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.locker.disponible {
+    background-color: var(--exito);
+    border-color: var(--exito);
+    color: var(--texto-principal);
+}
+.locker.disponible:hover {
+    background-color: var(--texto-principal);
+    color: var(--exito);
+    transform: scale(1.1);
+}
+.locker.ocupado {
+    background-color: var(--error);
+    border-color: var(--error);
+    cursor: not-allowed;
+    color: var(--blanco);
+}
+.locker.mantenimiento {
+    background-color: var(--warning);
+    border-color: var(--warning);
+    color: var(--warning-texto);
+    cursor: not-allowed;
+}
+.locker:hover {
+    transform: scale(1.1);
+}
+
+/* ---------------------------------------------- */
+/* ESTILOS DE CONTACTO (contacto.php) */
+/* ---------------------------------------------- */
+.social-link {
+    font-size: 1.2rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    color: white;
+    transition: transform 0.2s;
+}
+.social-link:hover {
+    transform: scale(1.03);
+    color: white;
+}
+.link-email { background: var(--texto-secundario); }
+.link-x { background: var(--destacado); }
+.link-instagram { background: #E1306C; } /* Color de marca, lo dejamos */
+.link-github { background: var(--destacado); }
+
+.social-link i {
+    margin-right: 15px;
+    width: 24px;
+    text-align: center;
+}
+.logo-x {
+    width: 24px;
+    height: 24px;
+    margin-right: 15px;
+}
+
+/* ---------------------------------------------- */
+/* 🖌️ REEMPLAZOS DE BOOTSTRAP 🖌️ */
+/* ---------------------------------------------- */
+
+/* Fondos */
+.bg-dark {
+    background-color: var(--bordes) !important;
+}
+.bg-light {
+    background-color: var(--fondo-secundario) !important;
+}
+.bg-primary {
+    background-color: var(--destacado) !important;
+}
+.card {
+    background-color: var(--fondo-secundario);
+    color: var(--texto-principal);
+}
+.card-header {
+    border-bottom: 1px solid var(--bordes);
+}
+.alert-info {
+    background-color: var(--fondo-secundario);
+    color: var(--texto-principal);
+    border-color: var(--bordes);
+}
+.modal-content {
+    background-color: var(--fondo-secundario);
+    color: var(--texto-principal);
+}
+.modal-header {
+    border-bottom: 1px solid var(--bordes);
+}
+.modal-footer {
+    border-top: 1px solid var(--bordes);
+}
+
+/* Botones */
+.btn-primary {
+    background-color: var(--destacado);
+    border-color: var(--destacado);
+    color: var(--blanco);
+}
+.btn-primary:hover {
+    background-color: var(--destacado);
+    border-color: var(--destacado);
+    opacity: 0.9;
+    color: var(--blanco);
+}
+.btn-danger {
+    background-color: var(--error);
+    border-color: var(--error);
+    color: var(--blanco);
+}
+.btn-danger:hover {
+    background-color: var(--error);
+    border-color: var(--error);
+    opacity: 0.9;
+    color: var(--blanco);
+}
+.btn-info {
+    background-color: var(--destacado);
+    border-color: var(--destacado);
+    color: var(--blanco);
+}
+.btn-info:hover {
+    background-color: var(--destacado);
+    border-color: var(--destacado);
+    opacity: 0.9;
+    color: var(--blanco);
+}
+.btn-success {
+    background-color: var(--exito);
+    border-color: var(--exito);
+    color: var(--texto-principal);
+}
+.btn-success:hover {
+    background-color: var(--exito);
+    border-color: var(--exito);
+    color: var(--texto-principal);
+    opacity: 0.9;
+}
+.btn-warning {
+    background-color: var(--warning);
+    border-color: var(--warning);
+    color: var(--warning-texto);
+}
+
+/* Textos */
+.text-success { color: var(--exito) !important; }
+.text-primary { color: var(--destacado) !important; }
+.text-warning { color: var(--warning) !important; }
+.text-muted { color: var(--texto-secundario) !important; }
+.dropdown-menu {
+    background-color: var(--fondo-secundario);
+}
+.dropdown-item {
+    color: var(--texto-principal);
+}
+.dropdown-item:hover {
+    background-color: #f0f2f5;
 }

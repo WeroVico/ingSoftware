@@ -1,4 +1,5 @@
 <?php
+// bienvenido.php
 // Usamos require_once para asegurarnos de que el menú se cargue una sola vez.
 require_once 'menu.php';
 require_once 'funciones/conecta.php';
@@ -40,29 +41,9 @@ if ($result->num_rows > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Usuario - Sistema de Lockers</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
-        /* Estilos para hacer las tarjetas más interactivas */
-        .action-card {
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            border: none;
-            border-radius: 15px;
-        }
-        .action-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-        .action-card .card-body i {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #343a40; /* Color oscuro para los íconos */
-        }
-        .jumbotron {
-            background: #343a40;
-            color: white;
-            border-radius: 15px;
-            padding: 2rem 2rem;
-        }
-    </style>
+
+    <link rel="stylesheet" href="css/estilo.css?v=1.2">
+
 </head>
 <body>
 

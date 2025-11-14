@@ -12,15 +12,6 @@ $id_usuario = $_SESSION['id_usuario'];
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<style>
-    .navbar {
-        margin-bottom: 20px;
-    }
-    .nav-item{
-        margin-left: 5px;
-    }
-</style>
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="bienvenido.php">Lockers UDG</a>
@@ -39,8 +30,6 @@ $id_usuario = $_SESSION['id_usuario'];
                     <a class="nav-link" href="contacto.php">Contacto</a>
                 </li>
                 
-                <!--Menu solo visible para los admins-->
-
                 <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] == 1): ?>
                 
                 <li class="nav-item">
@@ -50,7 +39,6 @@ $id_usuario = $_SESSION['id_usuario'];
                     <a class="nav-link bg-primary text-white rounded" href="lista_baneados.php" >Lista de baneados</a>
                 </li>
 
-                <!--Fin del menu solo visible para los admins-->
                 <?php endif; ?>
                 
             </ul>
