@@ -22,6 +22,8 @@ if (!empty($correo) && !empty($pass)) {
             $_SESSION['nombre'] = $usuario['nombre'];
             $_SESSION['correo'] = $usuario['correo'];
             $_SESSION['rol'] = $usuario['rol']; // Guardamos el rol en la sesión
+            
+            log_acceso($con, $usuario['id']);
             $response['existe'] = true;
         }
     }

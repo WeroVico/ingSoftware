@@ -50,8 +50,16 @@ try {
     $stmt_update_locker->execute();
 
     $con->commit();
+
+    //  4. Llevar registro (logs)
+    registrar_log($con, $id_usuario, 'CANCELACION_RESERVA', [
+        'id_reserva_cancelada' => $id_reserva,
+        'locker_liberado' => $id_locker,
+        'modulo' => $id_modulo,
+        'razon' => 'Cancelación manual por usuario'
+    ]);
     
-    // 4. Notificar al siguiente en la lista de espera para ese módulo
+    // 5. Notificar al siguiente en la lista de espera para ese módulo
     if ($id_modulo) {
         notificarUsuarioEnEspera($id_modulo, $con);
     }
@@ -61,6 +69,10 @@ try {
 } catch (Exception $e) {
     $con->rollback();
     $response['message'] = $e->getMessage();
+
+    if (isset($id_usuario)) {
+        log_error($con, $id_usuario, 'INTENTO_CANCELACION_FALLIDO', $e->getMessage());
+    }
 }
 
 header('Content-Type: application/json');

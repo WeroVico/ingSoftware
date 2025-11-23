@@ -89,11 +89,27 @@ try {
     $stmt_insert_reserva->execute();
 
     $con->commit();
+
+    
+    registrar_log($con, $id_usuario, 'NUEVA_RESERVA', [
+        'id_locker' => $id_locker,
+        'duracion_seleccionada' => $duracion_valor,
+        'fecha_fin_calculada' => $fecha_fin_str,
+        'nota' => 'Usuario reservó exitosamente'
+    ]);
+
     $response = ['success' => true, 'message' => '¡Reservación exitosa!'];
 
 } catch (Exception $e) {
     $con->rollback();
     $response['message'] = $e->getMessage();
+
+    // Registramos que intentó reservar pero falló
+    if (isset($id_usuario)) {
+        log_error($con, $id_usuario, 'INTENTO_RESERVA_FALLIDO', $e->getMessage(), [
+            'id_locker_intentado' => $id_locker ?? 'desconocido'
+        ]);
+    }
 }
 
 // ----> ESTA ES LA LÍNEA CORREGIDA <----

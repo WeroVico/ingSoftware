@@ -34,6 +34,12 @@ if ($id_locker && in_array($status, $valid_statuses)) {
         
         $con->commit();
 
+        registrar_log($con, $_SESSION['id_usuario'], 'ADMIN_CAMBIO_ESTADO', [
+        'id_locker_modificado' => $id_locker,
+        'nuevo_estado' => $status,
+        'nota' => 'Cambio forzado por administrador'
+         ]);
+
         // Si se liberó un locker, notificar al siguiente en la lista de espera
         if ($status === 'disponible') {
             $stmt_modulo = $con->prepare("SELECT id_modulo FROM locker WHERE id = ?");

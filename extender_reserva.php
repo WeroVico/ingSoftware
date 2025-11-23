@@ -55,11 +55,23 @@ try {
     $stmt_update->execute();
 
     $con->commit();
+
+    registrar_log($con, $id_usuario, 'EXTENSION_TIEMPO', [
+        'id_reserva' => $id_reserva,
+        'horas_agregadas' => $horas_a_extender,
+        'nueva_fecha_vencimiento' => $nueva_fecha_fin_str,
+        'anterior_fecha_vencimiento' => $fecha_fin_actual->format('Y-m-d H:i:s')
+    ]);
+
     $response['success'] = true;
 
 } catch (Exception $e) {
     $con->rollback();
     $response['message'] = $e->getMessage();
+    
+    if (isset($id_usuario)) {
+        log_error($con, $id_usuario, 'INTENTO_EXTENSION_FALLIDO', $e->getMessage());
+    }
 }
 
 header('Content-Type: application/json');
