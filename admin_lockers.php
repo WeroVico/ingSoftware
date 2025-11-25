@@ -77,11 +77,16 @@ $res_modulos = $con->query($sql_modulos);
                 data: { id_modulo: idModulo },
                 success: function(response) {
                     let html = '<div class="locker-grid">';
-                    response.forEach(locker => {
-                        html += `<div class="locker ${locker.status}" data-id="${locker.id}" data-label="${locker.etiqueta_completa}">
-                                    ${locker.etiqueta_completa}
-                                 </div>`;
-                    });
+                    // Ahora accedemos a response.data porque la respuesta cambió
+                    const lockers = response.data || response; // Fallback por seguridad
+                    
+                    if(Array.isArray(lockers)) {
+                        lockers.forEach(locker => {
+                            html += `<div class="locker ${locker.status}" data-id="${locker.id}" data-label="${locker.etiqueta_completa}">
+                                        ${locker.etiqueta_completa}
+                                    </div>`;
+                        });
+                    }
                     html += '</div>';
                     $('#locker-container').html(html);
                 }
