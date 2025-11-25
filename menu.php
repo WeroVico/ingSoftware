@@ -38,6 +38,11 @@ $id_usuario = $_SESSION['id_usuario'];
                 <li class="nav-item">
                     <a class="nav-link bg-primary text-white rounded" href="lista_baneados.php" >Lista de baneados</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link bg-primary text-white rounded ms-1" href="admin_reportes.php">
+                        <i class="fas fa-chart-bar"></i> Reportes
+                    </a>
+                </li>
 
                 <?php endif; ?>
                 
