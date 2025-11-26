@@ -13,7 +13,7 @@
     --destacado: #2AB7CA;
     --bordes: #26464F;
 
-    /* Colores neutrales (no estaban en tu paleta, pero son útiles) */
+    /* Colores neutrales */
     --warning: #ffc107;
     --warning-texto: #856404;
     --blanco: #FFFFFF;
@@ -55,7 +55,9 @@ h2, h3 {
 input[type="text"],
 input[type="email"],
 input[type="password"],
-input[type="file"] {
+input[type="file"],
+input[type="date"],
+select.form-select {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -64,10 +66,11 @@ input[type="file"] {
     box-sizing: border-box;
 }
 
+/* Botones Generales */
 button, .logout-button {
     width: 100%;
     padding: 10px;
-    background: var(--destacado); /* Color destacado */
+    background: var(--destacado);
     color: var(--blanco);
     border: none;
     border-radius: 5px;
@@ -126,7 +129,7 @@ button:hover, .logout-button:hover {
 }
 
 /* ---------------------------------------------- */
-/* ESTILOS DE LOCKERS (reservar_locker.php y admin_lockers.php) */
+/* ESTILOS DE LOCKERS (Grid) */
 /* ---------------------------------------------- */
 .locker-grid {
     display: grid;
@@ -170,7 +173,7 @@ button:hover, .logout-button:hover {
 }
 
 /* ---------------------------------------------- */
-/* ESTILOS DE CONTACTO (contacto.php) */
+/* ESTILOS DE CONTACTO */
 /* ---------------------------------------------- */
 .social-link {
     font-size: 1.2rem;
@@ -189,7 +192,7 @@ button:hover, .logout-button:hover {
 }
 .link-email { background: var(--texto-secundario); }
 .link-x { background: var(--destacado); }
-.link-instagram { background: #E1306C; } /* Color de marca, lo dejamos */
+.link-instagram { background: #E1306C; }
 .link-github { background: var(--destacado); }
 
 .social-link i {
@@ -204,26 +207,17 @@ button:hover, .logout-button:hover {
 }
 
 /* ---------------------------------------------- */
-/* 🖌️ REEMPLAZOS DE BOOTSTRAP 🖌️ */
+/* REEMPLAZOS DE BOOTSTRAP */
 /* ---------------------------------------------- */
+.bg-dark { background-color: var(--bordes) !important; }
+.bg-light { background-color: var(--fondo-secundario) !important; }
+.bg-primary { background-color: var(--destacado) !important; }
 
-/* Fondos */
-.bg-dark {
-    background-color: var(--bordes) !important;
-}
-.bg-light {
-    background-color: var(--fondo-secundario) !important;
-}
-.bg-primary {
-    background-color: var(--destacado) !important;
-}
 .card {
     background-color: var(--fondo-secundario);
     color: var(--texto-principal);
 }
-.card-header {
-    border-bottom: 1px solid var(--bordes);
-}
+.card-header { border-bottom: 1px solid var(--bordes); }
 .alert-info {
     background-color: var(--fondo-secundario);
     color: var(--texto-principal);
@@ -233,14 +227,10 @@ button:hover, .logout-button:hover {
     background-color: var(--fondo-secundario);
     color: var(--texto-principal);
 }
-.modal-header {
-    border-bottom: 1px solid var(--bordes);
-}
-.modal-footer {
-    border-top: 1px solid var(--bordes);
-}
+.modal-header { border-bottom: 1px solid var(--bordes); }
+.modal-footer { border-top: 1px solid var(--bordes); }
 
-/* Botones */
+/* Botones Bootstrap */
 .btn-primary {
     background-color: var(--destacado);
     border-color: var(--destacado);
@@ -268,22 +258,10 @@ button:hover, .logout-button:hover {
     border-color: var(--destacado);
     color: var(--blanco);
 }
-.btn-info:hover {
-    background-color: var(--destacado);
-    border-color: var(--destacado);
-    opacity: 0.9;
-    color: var(--blanco);
-}
 .btn-success {
     background-color: var(--exito);
     border-color: var(--exito);
     color: var(--texto-principal);
-}
-.btn-success:hover {
-    background-color: var(--exito);
-    border-color: var(--exito);
-    color: var(--texto-principal);
-    opacity: 0.9;
 }
 .btn-warning {
     background-color: var(--warning);
@@ -296,12 +274,58 @@ button:hover, .logout-button:hover {
 .text-primary { color: var(--destacado) !important; }
 .text-warning { color: var(--warning) !important; }
 .text-muted { color: var(--texto-secundario) !important; }
-.dropdown-menu {
+.dropdown-menu { background-color: var(--fondo-secundario); }
+.dropdown-item { color: var(--texto-principal); }
+.dropdown-item:hover { background-color: #f0f2f5; }
+
+/* ---------------------------------------------- */
+/* 5. FIX PAGINACIÓN (ARREGLO DE BOTONES) 🛠️ */
+/* ---------------------------------------------- */
+.pagination-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px; /* Espacio entre botones */
+}
+
+/* IMPORTANTE: Esto anula el width: 100% global de los botones */
+.pagination-container .page-link {
+    width: auto !important; 
+    display: inline-block;
+    margin-top: 0; /* Quita el margen top global */
     background-color: var(--fondo-secundario);
+    color: var(--destacado);
+    border: 1px solid var(--bordes);
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
 }
-.dropdown-item {
-    color: var(--texto-principal);
+
+.pagination-container .page-link:hover {
+    background-color: var(--destacado);
+    color: var(--blanco);
+    border-color: var(--destacado);
 }
-.dropdown-item:hover {
-    background-color: #f0f2f5;
+
+/* Botón activo (número de página) */
+.page-item.active .page-link {
+    background-color: var(--destacado);
+    color: var(--blanco);
+    border-color: var(--destacado);
+    z-index: 2;
+}
+
+/* Botón deshabilitado */
+.page-item.disabled .page-link {
+    background-color: var(--fondo-secundario);
+    color: var(--texto-secundario);
+    border-color: var(--bordes);
+    cursor: not-allowed;
+    opacity: 0.6;
 }

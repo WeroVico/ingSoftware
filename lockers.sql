@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-11-2025 a las 23:55:34
+-- Tiempo de generación: 26-11-2025 a las 15:51:35
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -88,7 +88,7 @@ INSERT INTO `locker` (`id`, `id_modulo`, `numero`, `etiqueta_completa`, `status`
 (18, 1, 18, 'X-18', 'disponible'),
 (19, 1, 19, 'X-19', 'disponible'),
 (20, 1, 20, 'X-20', 'disponible'),
-(21, 2, 1, 'E-1', 'ocupado'),
+(21, 2, 1, 'E-1', 'disponible'),
 (22, 2, 2, 'E-2', 'disponible'),
 (23, 2, 3, 'E-3', 'disponible'),
 (24, 2, 4, 'E-4', 'disponible'),
@@ -168,7 +168,11 @@ INSERT INTO `reservacion` (`id`, `id_usuario`, `id_locker`, `fecha_inicio`, `fec
 (18, 2, 23, '2025-11-22 22:12:22', '2025-11-23 00:12:22', 'cancelada'),
 (19, 2, 21, '2025-11-22 22:14:09', '2025-11-23 00:14:09', 'cancelada'),
 (20, 2, 21, '2025-11-22 22:16:53', '2025-11-23 00:16:53', 'cancelada'),
-(21, 2, 21, '2025-11-24 16:55:09', '2025-11-24 18:55:09', 'activa');
+(21, 2, 21, '2025-11-24 16:55:09', '2025-11-24 18:55:09', 'cancelada'),
+(22, 2, 1, '2025-11-25 17:27:07', '2025-11-25 20:27:07', 'cancelada'),
+(23, 2, 4, '2025-11-25 17:27:16', '2025-11-25 19:27:16', 'cancelada'),
+(24, 2, 20, '2025-11-25 17:35:34', '2025-11-25 19:35:34', 'cancelada'),
+(25, 2, 3, '2025-11-25 18:03:56', '2025-11-25 20:03:56', 'cancelada');
 
 -- --------------------------------------------------------
 
@@ -201,7 +205,28 @@ INSERT INTO `sistema_logs` (`id`, `id_usuario`, `accion`, `detalles`, `fecha`, `
 (9, 12, 'ACCESO_SISTEMA', '{\"perfil_usuario\":{\"id\":12,\"nombre\":\"Testeando\",\"apellidos\":\"Login automatico\",\"codigo\":\"0000333\",\"correo\":\"testtest@mail.com\",\"rol\":2},\"datos_evento\":{\"mensaje\":\"Inicio de sesión exitoso\",\"tipo\":\"login\"}}', '2025-11-22 22:56:03', '::1'),
 (10, 12, 'SALIDA_SISTEMA', '{\"perfil_usuario\":{\"id\":12,\"nombre\":\"Testeando\",\"apellidos\":\"Login automatico\",\"codigo\":\"0000333\",\"correo\":\"testtest@mail.com\",\"rol\":2},\"datos_evento\":{\"mensaje\":\"Cierre de sesión voluntario\",\"tipo\":\"logout\"}}', '2025-11-22 22:56:10', '::1'),
 (11, 2, 'ACCESO_SISTEMA', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"mensaje\":\"Inicio de sesión exitoso\",\"tipo\":\"login\"}}', '2025-11-24 16:55:06', '::1'),
-(12, 2, 'NUEVA_RESERVA', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"id_locker\":21,\"duracion_seleccionada\":2,\"fecha_fin_calculada\":\"2025-11-24 18:55:09\",\"nota\":\"Usuario reservó exitosamente\"}}', '2025-11-24 16:55:09', '::1');
+(12, 2, 'NUEVA_RESERVA', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"id_locker\":21,\"duracion_seleccionada\":2,\"fecha_fin_calculada\":\"2025-11-24 18:55:09\",\"nota\":\"Usuario reservó exitosamente\"}}', '2025-11-24 16:55:09', '::1'),
+(13, 2, 'ACCESO_SISTEMA', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"mensaje\":\"Inicio de sesión exitoso\",\"tipo\":\"login\"}}', '2025-11-25 17:17:13', '::1'),
+(14, 2, 'CANCELACION_RESERVA', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"id_reserva_cancelada\":21,\"locker_liberado\":21,\"modulo\":2,\"razon\":\"Cancelación manual por usuario\"}}', '2025-11-25 17:17:18', '::1'),
+(15, 2, 'SALIDA_SISTEMA', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"mensaje\":\"Cierre de sesión voluntario\",\"tipo\":\"logout\"}}', '2025-11-25 17:24:16', '::1'),
+(16, 2, 'ACCESO_SISTEMA', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"mensaje\":\"Inicio de sesión exitoso\",\"tipo\":\"login\"}}', '2025-11-25 17:27:05', '::1'),
+(17, 2, 'NUEVA_RESERVA', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"id_locker\":1,\"duracion_seleccionada\":2,\"fecha_fin_calculada\":\"2025-11-25 19:27:07\",\"nota\":\"Usuario reservó exitosamente\"}}', '2025-11-25 17:27:07', '::1'),
+(18, 2, 'EXTENSION_TIEMPO', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"id_reserva\":22,\"horas_agregadas\":1,\"nueva_fecha_vencimiento\":\"2025-11-25 20:27:07\",\"anterior_fecha_vencimiento\":\"2025-11-25 19:27:07\"}}', '2025-11-25 17:27:12', '::1'),
+(19, 2, 'CANCELACION_RESERVA', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"id_reserva_cancelada\":22,\"locker_liberado\":1,\"modulo\":1,\"razon\":\"Cancelación manual por usuario\"}}', '2025-11-25 17:27:13', '::1'),
+(20, 2, 'NUEVA_RESERVA', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"id_locker\":4,\"duracion_seleccionada\":2,\"fecha_fin_calculada\":\"2025-11-25 19:27:16\",\"nota\":\"Usuario reservó exitosamente\"}}', '2025-11-25 17:27:16', '::1'),
+(21, 2, 'CANCELACION_RESERVA', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"id_reserva_cancelada\":23,\"locker_liberado\":4,\"modulo\":1,\"razon\":\"Cancelación manual por usuario\"}}', '2025-11-25 17:27:21', '::1'),
+(22, 2, 'SALIDA_SISTEMA', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"mensaje\":\"Cierre de sesión voluntario\",\"tipo\":\"logout\"}}', '2025-11-25 17:27:22', '::1'),
+(23, 2, 'ACCESO_SISTEMA', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"mensaje\":\"Inicio de sesión exitoso\",\"tipo\":\"login\"}}', '2025-11-25 17:35:28', '::1'),
+(24, 2, 'NUEVA_RESERVA', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"id_locker\":20,\"duracion_seleccionada\":2,\"fecha_fin_calculada\":\"2025-11-25 19:35:34\",\"nota\":\"Usuario reservó exitosamente\"}}', '2025-11-25 17:35:34', '::1'),
+(25, 2, 'CANCELACION_RESERVA', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"id_reserva_cancelada\":24,\"locker_liberado\":20,\"modulo\":1,\"razon\":\"Cancelación manual por usuario\"}}', '2025-11-25 17:35:36', '::1'),
+(26, 2, 'SALIDA_SISTEMA', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"mensaje\":\"Cierre de sesión voluntario\",\"tipo\":\"logout\"}}', '2025-11-25 17:45:42', '::1'),
+(27, 3, 'ACCESO_SISTEMA', '{\"perfil_usuario\":{\"id\":3,\"nombre\":\"Tester\",\"apellidos\":\"Tinoco\",\"codigo\":\"0\",\"correo\":\"test@mail.com\",\"rol\":1},\"datos_evento\":{\"mensaje\":\"Inicio de sesión exitoso\",\"tipo\":\"login\"}}', '2025-11-25 17:45:45', '::1'),
+(28, 3, 'SALIDA_SISTEMA', '{\"perfil_usuario\":{\"id\":3,\"nombre\":\"Tester\",\"apellidos\":\"Tinoco\",\"codigo\":\"0\",\"correo\":\"test@mail.com\",\"rol\":1},\"datos_evento\":{\"mensaje\":\"Cierre de sesión voluntario\",\"tipo\":\"logout\"}}', '2025-11-25 17:57:47', '::1'),
+(29, 2, 'ACCESO_SISTEMA', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"mensaje\":\"Inicio de sesión exitoso\",\"tipo\":\"login\"}}', '2025-11-25 18:03:53', '::1'),
+(30, 2, 'NUEVA_RESERVA', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"id_locker\":3,\"duracion_seleccionada\":2,\"fecha_fin_calculada\":\"2025-11-25 20:03:56\",\"nota\":\"Usuario reservó exitosamente\"}}', '2025-11-25 18:03:56', '::1'),
+(31, 2, 'CANCELACION_RESERVA', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"id_reserva_cancelada\":25,\"locker_liberado\":3,\"modulo\":1,\"razon\":\"Cancelación manual por usuario\"}}', '2025-11-25 18:03:59', '::1'),
+(32, 2, 'SALIDA_SISTEMA', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"mensaje\":\"Cierre de sesión voluntario\",\"tipo\":\"logout\"}}', '2025-11-25 18:04:01', '::1'),
+(33, 2, 'ACCESO_SISTEMA', '{\"perfil_usuario\":{\"id\":2,\"nombre\":\"Angel Ulises\",\"apellidos\":\"Tinoco\",\"codigo\":\"220581409\",\"correo\":\"angel.tinoco8140@alumnos.udg.mx\",\"rol\":2},\"datos_evento\":{\"mensaje\":\"Inicio de sesión exitoso\",\"tipo\":\"login\"}}', '2025-11-26 08:46:20', '::1');
 
 -- --------------------------------------------------------
 
@@ -220,26 +245,28 @@ CREATE TABLE `usuario` (
   `archivo_file` varchar(255) DEFAULT NULL,
   `eliminado` tinyint(1) DEFAULT 0,
   `fecha_alta` timestamp NOT NULL DEFAULT current_timestamp(),
-  `rol` tinyint(1) NOT NULL DEFAULT 2 COMMENT '1: Admin, 2: Estudiante'
+  `rol` tinyint(1) NOT NULL DEFAULT 2 COMMENT '1: Admin, 2: Estudiante',
+  `estado_suspension` tinyint(1) DEFAULT 0 COMMENT '0: Activo, 1: Suspendido',
+  `suspension_hasta` datetime DEFAULT NULL COMMENT 'Fecha y hora fin del castigo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `nombre`, `apellidos`, `codigo`, `correo`, `pass`, `archivo_nombre`, `archivo_file`, `eliminado`, `fecha_alta`, `rol`) VALUES
-(1, 'Ulises', 'Tinoco', '220581409', 'angelcampeon2005@gmail.com', '$2y$10$/gryKpQYg.pSqYSRcUW9eulKAEr.ueKd05BGyUGo0SJFstzrctL.K', 'Speedrunner guy.jpg', 'cc45e169f5e8195e0acf9db5cf38b0e9.jpg', 0, '2025-09-17 00:13:17', 2),
-(2, 'Angel Ulises', 'Tinoco', '220581409', 'angel.tinoco8140@alumnos.udg.mx', '$2y$10$Pmn3eEnIz4gfd3XF9gFwCefo.KUFCJ7cg09iuLdcCEyeHtmUQrNXy', 'a.jpg', '6e398e4c1b20ee6691670ba521be6b23.jpg', 0, '2025-09-17 00:20:44', 2),
-(3, 'Tester', 'Tinoco', '0', 'test@mail.com', '$2y$10$KnZWy4VKRj8aSrxttmx3vOWav/imeunMLnQvfGWUFVXkcAKWAQTOi', '1.png', '9c33784be9289bd786fc4f6bd4dcb9d1.png', 0, '2025-09-17 02:43:29', 1),
-(4, 'ANGEL TESTER', 'ANGEL', '1', 'soyulisesyesteesminuevocorreo@gmail.com', '$2y$10$yJSU9xrYm2WoxNDasUXFr..t9EyUhMcGqrGHZmK5PFaF5iyCQvkme', 'chara.png', '2aa6ef9a4c7c339fc1ea94faeb1e7e11.png', 0, '2025-09-17 03:57:07', 1),
-(5, 'Tester', 'a', '2', 'asdf@mail.com', '$2y$10$2ExkSUptA8nn2ljZVJzKuOb3RCMLdrXDYTlGdzxFhx3aOoku/qgxS', '20211224_213753.jpg', '2849a3cf925ae7d7144db4d3c41fed40.jpg', 0, '2025-09-18 00:05:48', 2),
-(6, 'tester', '1', '3', 'tester@mail.com', '$2y$10$04fizTfnvjMQv6CitnBYDeqR6Dd9EFPoF7BHUtrO3VbjpVJ9ez0OG', '20211229_233053.jpg', '6c3a7c99467f742bd5dc27543df1b92b.jpg', 0, '2025-09-18 00:06:37', 2),
-(7, 'Ulises', 'Zanchez', '1111', 'ulises@mail.com', '$2y$10$CP521NYQhxlKiPHbD2KTy.fuXG/mnjCyWtzmGjFMI4AfDTQzbIYha', 'Ulises.jpg', '48ea35024e809cf7325ab89dea900862.jpg', 0, '2025-09-24 19:18:48', 1),
-(8, 'Yo', 'Angel', '220581409', 'void.vi.co01@gmail.com', '$2y$10$xs3hoA25aOmeWCMtUPbGl.Dy/uJRPUZu128n697G35RbMKtgSXVS6', 'SOBRECARGA.png', 'aaef16b440f3f7cd19f9c23e05ff87ad.png', 0, '2025-09-24 19:22:47', 2),
-(9, 'Testerperron', 'asdf', '1', 'admin@mail.com', '$2y$10$4rfoY1m0CwDIX7KFE1lWN.VN4Oz5xjFU/0bTpF9bdh0gK1PRqDkGS', 'dead-by-daylight-springtrap-the-animatronic.jpg', 'f2ab559b6e23e39d8f1ec4226639fbd0.jpg', 0, '2025-09-29 19:39:23', 1),
-(10, 'testeo', 'asdf', '1111', 'asdfasdf@mail', '$2y$10$VifsfbRFH0lS5Xd5rO8/y.T3gIVMZ.Fpgiz6k2KOalTuyvhZmrhga', 'Captura de pantalla 2025-09-03 102139.png', 'ca39d4cc2020cfff43188be473fe01c6.png', 0, '2025-10-06 20:41:39', 2),
-(11, 'pepe', 'perez', '00000000069', 'correomail@mail.com', '$2y$10$8/tfvjTw9thRLuAu1XUEvOnGCSfWu4nQQVzscew2T.2BE0W/q5aya', 'Captura de pantalla (6).png', '0d1900ff266049556a420271ca6620ff.png', 0, '2025-11-10 19:57:05', 1),
-(12, 'Testeando', 'Login automatico', '0000333', 'testtest@mail.com', '$2y$10$tgefWTfCRFx.r/UOrpKmP.U0aBETApH8T/./ecrGF/Mox6JM2k8ZO', 'ugh.gif', '2c19c9eac0b3fffe09bd4d3a3047efa7.gif', 0, '2025-11-23 04:56:03', 2);
+INSERT INTO `usuario` (`id`, `nombre`, `apellidos`, `codigo`, `correo`, `pass`, `archivo_nombre`, `archivo_file`, `eliminado`, `fecha_alta`, `rol`, `estado_suspension`, `suspension_hasta`) VALUES
+(1, 'Ulises', 'Tinoco', '220581409', 'angelcampeon2005@gmail.com', '$2y$10$/gryKpQYg.pSqYSRcUW9eulKAEr.ueKd05BGyUGo0SJFstzrctL.K', 'Speedrunner guy.jpg', 'cc45e169f5e8195e0acf9db5cf38b0e9.jpg', 0, '2025-09-17 00:13:17', 2, 0, NULL),
+(2, 'Angel Ulises', 'Tinoco', '220581409', 'angel.tinoco8140@alumnos.udg.mx', '$2y$10$Pmn3eEnIz4gfd3XF9gFwCefo.KUFCJ7cg09iuLdcCEyeHtmUQrNXy', 'a.jpg', '6e398e4c1b20ee6691670ba521be6b23.jpg', 0, '2025-09-17 00:20:44', 2, 0, NULL),
+(3, 'Tester', 'Tinoco', '0', 'test@mail.com', '$2y$10$KnZWy4VKRj8aSrxttmx3vOWav/imeunMLnQvfGWUFVXkcAKWAQTOi', '1.png', '9c33784be9289bd786fc4f6bd4dcb9d1.png', 0, '2025-09-17 02:43:29', 1, 0, NULL),
+(4, 'ANGEL TESTER', 'ANGEL', '1', 'soyulisesyesteesminuevocorreo@gmail.com', '$2y$10$yJSU9xrYm2WoxNDasUXFr..t9EyUhMcGqrGHZmK5PFaF5iyCQvkme', 'chara.png', '2aa6ef9a4c7c339fc1ea94faeb1e7e11.png', 0, '2025-09-17 03:57:07', 1, 0, NULL),
+(5, 'Tester', 'a', '2', 'asdf@mail.com', '$2y$10$2ExkSUptA8nn2ljZVJzKuOb3RCMLdrXDYTlGdzxFhx3aOoku/qgxS', '20211224_213753.jpg', '2849a3cf925ae7d7144db4d3c41fed40.jpg', 0, '2025-09-18 00:05:48', 2, 0, NULL),
+(6, 'tester', '1', '3', 'tester@mail.com', '$2y$10$04fizTfnvjMQv6CitnBYDeqR6Dd9EFPoF7BHUtrO3VbjpVJ9ez0OG', '20211229_233053.jpg', '6c3a7c99467f742bd5dc27543df1b92b.jpg', 0, '2025-09-18 00:06:37', 2, 0, NULL),
+(7, 'Ulises', 'Zanchez', '1111', 'ulises@mail.com', '$2y$10$CP521NYQhxlKiPHbD2KTy.fuXG/mnjCyWtzmGjFMI4AfDTQzbIYha', 'Ulises.jpg', '48ea35024e809cf7325ab89dea900862.jpg', 0, '2025-09-24 19:18:48', 1, 0, NULL),
+(8, 'Yo', 'Angel', '220581409', 'void.vi.co01@gmail.com', '$2y$10$xs3hoA25aOmeWCMtUPbGl.Dy/uJRPUZu128n697G35RbMKtgSXVS6', 'SOBRECARGA.png', 'aaef16b440f3f7cd19f9c23e05ff87ad.png', 0, '2025-09-24 19:22:47', 2, 0, NULL),
+(9, 'Testerperron', 'asdf', '1', 'admin@mail.com', '$2y$10$4rfoY1m0CwDIX7KFE1lWN.VN4Oz5xjFU/0bTpF9bdh0gK1PRqDkGS', 'dead-by-daylight-springtrap-the-animatronic.jpg', 'f2ab559b6e23e39d8f1ec4226639fbd0.jpg', 0, '2025-09-29 19:39:23', 1, 0, NULL),
+(10, 'testeo', 'asdf', '1111', 'asdfasdf@mail', '$2y$10$VifsfbRFH0lS5Xd5rO8/y.T3gIVMZ.Fpgiz6k2KOalTuyvhZmrhga', 'Captura de pantalla 2025-09-03 102139.png', 'ca39d4cc2020cfff43188be473fe01c6.png', 0, '2025-10-06 20:41:39', 2, 0, NULL),
+(11, 'pepe', 'perez', '00000000069', 'correomail@mail.com', '$2y$10$8/tfvjTw9thRLuAu1XUEvOnGCSfWu4nQQVzscew2T.2BE0W/q5aya', 'Captura de pantalla (6).png', '0d1900ff266049556a420271ca6620ff.png', 0, '2025-11-10 19:57:05', 1, 0, NULL),
+(12, 'Testeando', 'Login automatico', '0000333', 'testtest@mail.com', '$2y$10$tgefWTfCRFx.r/UOrpKmP.U0aBETApH8T/./ecrGF/Mox6JM2k8ZO', 'ugh.gif', '2c19c9eac0b3fffe09bd4d3a3047efa7.gif', 0, '2025-11-23 04:56:03', 2, 0, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -315,13 +342,13 @@ ALTER TABLE `modulo`
 -- AUTO_INCREMENT de la tabla `reservacion`
 --
 ALTER TABLE `reservacion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `sistema_logs`
 --
 ALTER TABLE `sistema_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`

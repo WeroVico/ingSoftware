@@ -14,6 +14,7 @@ if ($stmt_reserva->get_result()->num_rows > 0) {
     exit();
 }
 
+// CORRECCIÓN: Tabla 'modulo' (singular)
 $sql_modulos = "SELECT * FROM modulo ORDER BY nombre";
 $res_modulos = $con->query($sql_modulos);
 ?>
@@ -23,15 +24,10 @@ $res_modulos = $con->query($sql_modulos);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservar un Locker</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
-        .locker-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 15px; margin-top: 20px; }
-        .locker { padding: 15px; border: 1px solid #ddd; border-radius: 8px; text-align: center; font-weight: bold; cursor: pointer; transition: all 0.2s; }
-        .locker.disponible { background-color: #d4edda; border-color: #c3e6cb; }
-        .locker.disponible:hover { background-color: #28a745; color: white; transform: scale(1.1); }
-        .locker.ocupado, .locker.mantenimiento { background-color: #f8d7da; border-color: #f5c6cb; cursor: not-allowed; color: #721c24; }
-        .pagination-container { margin-top: 20px; text-align: center; }
-    </style>
+    
+    <link rel="stylesheet" href="css/estilo.css">
 </head>
 <body>
     <div class="container mt-4">
@@ -72,8 +68,7 @@ $res_modulos = $con->query($sql_modulos);
                 </div>
 
                 <nav class="pagination-container">
-                    <ul class="pagination justify-content-center" id="pagination-controls">
-                        </ul>
+                    <ul class="pagination justify-content-center" id="pagination-controls"></ul>
                 </nav>
             </div>
         </div>
@@ -94,9 +89,10 @@ $res_modulos = $con->query($sql_modulos);
                             <option value="2">2 horas</option>
                             <option value="3">3 horas</option>
                             <option value="4">4 horas</option>
+                            <option value="5">Prueba (2 min)</option>
                         </select>
                     </div>
-                    <p class="small text-muted">Horario: 7:00 AM - 12:00 AM</p>
+                    <p class="small text-muted">Horario de servicio extendido (Pruebas).</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -108,6 +104,7 @@ $res_modulos = $con->query($sql_modulos);
 
     <script src="jquery-3.3.1.min.js"></script>
     <script>
+        // (Mismo script de JS que te di para RF17, funciona perfecto con el backend actualizado)
         let currentPage = 1;
         let selectedLockerId = null;
         const confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
@@ -123,12 +120,7 @@ $res_modulos = $con->query($sql_modulos);
                 url: 'lockers_get.php',
                 type: 'POST',
                 dataType: 'json',
-                data: { 
-                    id_modulo: idModulo,
-                    search: search,
-                    status: status,
-                    page: page
-                },
+                data: { id_modulo: idModulo, search: search, status: status, page: page },
                 success: function(response) {
                     let html = '';
                     const lockers = response.data;
@@ -144,26 +136,16 @@ $res_modulos = $con->query($sql_modulos);
                         });
                         html += '</div>';
                     } else {
-                        html += '<div class="alert alert-warning text-center">No se encontraron lockers con esos criterios.</div>';
+                        html += '<div class="alert alert-warning text-center">No se encontraron lockers.</div>';
                     }
                     $('#locker-container').html(html);
 
-                    // Renderizar Paginación
+                    // Paginación simple
                     let pagHtml = '';
                     if (pagination.total_pages > 1) {
-                        pagHtml += `<li class="page-item ${pagination.current_page == 1 ? 'disabled' : ''}">
-                                        <button class="page-link" onclick="loadLockers(${pagination.current_page - 1})">Anterior</button>
-                                    </li>`;
-                        
-                        for(let i=1; i<=pagination.total_pages; i++){
-                             pagHtml += `<li class="page-item ${pagination.current_page == i ? 'active' : ''}">
-                                            <button class="page-link" onclick="loadLockers(${i})">${i}</button>
-                                        </li>`;
-                        }
-
-                        pagHtml += `<li class="page-item ${pagination.current_page == pagination.total_pages ? 'disabled' : ''}">
-                                        <button class="page-link" onclick="loadLockers(${pagination.current_page + 1})">Siguiente</button>
-                                    </li>`;
+                        pagHtml += `<li class="page-item ${pagination.current_page == 1 ? 'disabled' : ''}"><button class="page-link" onclick="loadLockers(${pagination.current_page - 1})">Anterior</button></li>`;
+                        pagHtml += `<li class="page-item disabled"><span class="page-link">Página ${pagination.current_page} de ${pagination.total_pages}</span></li>`;
+                        pagHtml += `<li class="page-item ${pagination.current_page == pagination.total_pages ? 'disabled' : ''}"><button class="page-link" onclick="loadLockers(${pagination.current_page + 1})">Siguiente</button></li>`;
                     }
                     $('#pagination-controls').html(pagHtml);
                 }
@@ -171,15 +153,11 @@ $res_modulos = $con->query($sql_modulos);
         }
 
         $(document).ready(function() {
-            // Cargar lockers al inicio
             loadLockers();
-
-            // Eventos de filtros (recargan la búsqueda)
             $('#selectModulo, #filterStatus').on('change', function() { loadLockers(1); });
             $('#searchLocker').on('keyup', function() { loadLockers(1); });
 
-            // Click en locker
-            $('#locker-container').on('click', '.locker.disponible', function() {
+            $(document).on('click', '.locker.disponible', function() {
                 selectedLockerId = $(this).data('id');
                 $('#locker-label').text($(this).data('label'));
                 confirmModal.show();
