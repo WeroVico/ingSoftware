@@ -10,26 +10,25 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
     exit;
 }
 
-// Recibir filtros de fechas (por defecto últimos 30 días)
+// Recibir filtros de fechas
 $fecha_fin = $_POST['fecha_fin'] ?? date('Y-m-d');
 $fecha_inicio = $_POST['fecha_inicio'] ?? date('Y-m-d', strtotime('-30 days'));
 
-// Ajustar formato para consultas (inicio del día y fin del día)
 $inicio_sql = "$fecha_inicio 00:00:00";
 $fin_sql = "$fecha_fin 23:59:59";
 
-$response = [];
+$respuesta = [];
 
-// 1. GRÁFICO: Estado Actual de los Lockers (Pastel)
+// 1. GRÁFICO: Estado Actual de los Lockers
 $sql_estado = "SELECT status, COUNT(*) as total FROM locker GROUP BY status";
 $res_estado = $con->query($sql_estado);
-$data_estado = [];
+$datos_estado = [];
 while($row = $res_estado->fetch_assoc()) {
-    $data_estado[$row['status']] = $row['total'];
+    $datos_estado[$row['status']] = $row['total'];
 }
-$response['estado_lockers'] = $data_estado;
+$respuesta['estado_lockers'] = $datos_estado;
 
-// 2. GRÁFICO: Reservas por Día en el rango seleccionado (Línea)
+// 2. GRÁFICO: Historial de Reservas por Día
 $sql_reservas = "SELECT DATE(fecha_inicio) as fecha, COUNT(*) as total 
                  FROM reservacion 
                  WHERE fecha_inicio BETWEEN ? AND ? 
@@ -40,25 +39,25 @@ $stmt->bind_param("ss", $inicio_sql, $fin_sql);
 $stmt->execute();
 $res_reservas = $stmt->get_result();
 
-$labels_fechas = [];
-$data_reservas = [];
+$etiquetas_fechas = [];
+$valores_reservas = [];
 while($row = $res_reservas->fetch_assoc()) {
-    $labels_fechas[] = date("d/m", strtotime($row['fecha']));
-    $data_reservas[] = $row['total'];
+    $etiquetas_fechas[] = date("d/m", strtotime($row['fecha']));
+    $valores_reservas[] = $row['total'];
 }
-$response['historial_reservas'] = [
-    'labels' => $labels_fechas,
-    'data' => $data_reservas
+$respuesta['historial_reservas'] = [
+    'labels' => $etiquetas_fechas,
+    'data' => $valores_reservas
 ];
 
-// 3. KPI: Total de acciones registradas en Logs (Métrica simple)
+// 3. KPI: Total de acciones en Logs
 $sql_logs = "SELECT COUNT(*) as total FROM sistema_logs WHERE fecha BETWEEN ? AND ?";
 $stmt_l = $con->prepare($sql_logs);
 $stmt_l->bind_param("ss", $inicio_sql, $fin_sql);
 $stmt_l->execute();
-$response['total_logs'] = $stmt_l->get_result()->fetch_assoc()['total'];
+$respuesta['total_logs'] = $stmt_l->get_result()->fetch_assoc()['total'];
 
-// 4. TOP 5 Lockers más usados en el periodo (Barras)
+// 4. TOP 5 Lockers más usados
 $sql_top = "SELECT l.etiqueta_completa, COUNT(r.id) as uso 
             FROM reservacion r
             JOIN locker l ON r.id_locker = l.id
@@ -71,17 +70,17 @@ $stmt_t->bind_param("ss", $inicio_sql, $fin_sql);
 $stmt_t->execute();
 $res_top = $stmt_t->get_result();
 
-$top_labels = [];
-$top_data = [];
+$top_etiquetas = [];
+$top_valores = [];
 while($row = $res_top->fetch_assoc()) {
-    $top_labels[] = $row['etiqueta_completa'];
-    $top_data[] = $row['uso'];
+    $top_etiquetas[] = $row['etiqueta_completa'];
+    $top_valores[] = $row['uso'];
 }
-$response['top_lockers'] = [
-    'labels' => $top_labels,
-    'data' => $top_data
+$respuesta['top_lockers'] = [
+    'labels' => $top_etiquetas,
+    'data' => $top_valores
 ];
 
 header('Content-Type: application/json');
-echo json_encode($response);
+echo json_encode($respuesta);
 ?>

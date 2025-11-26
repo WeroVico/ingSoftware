@@ -1,6 +1,6 @@
 <?php
 require_once 'menu.php';
-// Validación de seguridad extra por si acceden directo
+// Validación de seguridad
 if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
     header("Location: bienvenido.php");
     exit();
@@ -13,7 +13,7 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
     <title>Reportes y Estadísticas</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        .chart-container {
+        .contenedor-grafico {
             position: relative;
             height: 300px;
             width: 100%;
@@ -26,7 +26,7 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
         
         <div class="card mb-4">
             <div class="card-body">
-                <form id="filterForm" class="row g-3 align-items-end">
+                <form id="formFiltros" class="row g-3 align-items-end">
                     <div class="col-md-4">
                         <label class="form-label">Fecha Inicio:</label>
                         <input type="date" id="fecha_inicio" class="form-control" value="<?php echo date('Y-m-d', strtotime('-30 days')); ?>">
@@ -70,8 +70,8 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
                 <div class="card h-100">
                     <div class="card-header">Historial de Reservas</div>
                     <div class="card-body">
-                        <div class="chart-container">
-                            <canvas id="chartReservas"></canvas>
+                        <div class="contenedor-grafico">
+                            <canvas id="graficoReservas"></canvas>
                         </div>
                     </div>
                 </div>
@@ -81,8 +81,8 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
                 <div class="card h-100">
                     <div class="card-header">Estado Actual de Lockers</div>
                     <div class="card-body">
-                        <div class="chart-container">
-                            <canvas id="chartEstado"></canvas>
+                        <div class="contenedor-grafico">
+                            <canvas id="graficoEstado"></canvas>
                         </div>
                     </div>
                 </div>
@@ -92,8 +92,8 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
                 <div class="card">
                     <div class="card-header">Top 5 Lockers Más Usados</div>
                     <div class="card-body">
-                        <div class="chart-container" style="height: 250px;">
-                            <canvas id="chartTop"></canvas>
+                        <div class="contenedor-grafico" style="height: 250px;">
+                            <canvas id="graficoTop"></canvas>
                         </div>
                     </div>
                 </div>
@@ -104,14 +104,14 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
     <script src="jquery-3.3.1.min.js"></script>
     <script>
         // Variables globales para las instancias de los gráficos
-        let chartReservas, chartEstado, chartTop;
+        let instanciaReservas, instanciaEstado, instanciaTop;
 
         function cargarDatos() {
             const inicio = $('#fecha_inicio').val();
             const fin = $('#fecha_fin').val();
 
             $.ajax({
-                url: 'admin_reportes_datos.php',
+                url: 'admin_reportes_datos.php', // <-- URL CORREGIDA
                 type: 'POST',
                 dataType: 'json',
                 data: { fecha_inicio: inicio, fecha_fin: fin },
@@ -125,14 +125,10 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
                     $('#kpi_logs').text(res.total_logs);
                     $('#kpi_disponibles').text(res.estado_lockers.disponible || 0);
 
-                    // 2. Renderizar Gráfico de Reservas (Línea)
-                    renderLineChart(res.historial_reservas);
-
-                    // 3. Renderizar Gráfico de Estado (Pastel)
-                    renderPieChart(res.estado_lockers);
-
-                    // 4. Renderizar Top Lockers (Barras)
-                    renderBarChart(res.top_lockers);
+                    // 2. Renderizar Gráficos
+                    renderizarLinea(res.historial_reservas);
+                    renderizarPastel(res.estado_lockers);
+                    renderizarBarras(res.top_lockers);
                 },
                 error: function() {
                     alert('Error al cargar los reportes');
@@ -140,17 +136,17 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
             });
         }
 
-        function renderLineChart(data) {
-            const ctx = document.getElementById('chartReservas').getContext('2d');
-            if(chartReservas) chartReservas.destroy();
+        function renderizarLinea(datos) {
+            const ctx = document.getElementById('graficoReservas').getContext('2d');
+            if(instanciaReservas) instanciaReservas.destroy();
 
-            chartReservas = new Chart(ctx, {
+            instanciaReservas = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: data.labels,
+                    labels: datos.labels,
                     datasets: [{
                         label: 'Nuevas Reservas',
-                        data: data.data,
+                        data: datos.data,
                         borderColor: '#0d6efd',
                         backgroundColor: 'rgba(13, 110, 253, 0.1)',
                         tension: 0.3,
@@ -161,16 +157,15 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
             });
         }
 
-        function renderPieChart(data) {
-            const ctx = document.getElementById('chartEstado').getContext('2d');
-            if(chartEstado) chartEstado.destroy();
+        function renderizarPastel(datos) {
+            const ctx = document.getElementById('graficoEstado').getContext('2d');
+            if(instanciaEstado) instanciaEstado.destroy();
 
-            // Preparamos datos seguros (si no hay, ponemos 0)
-            const disp = data.disponible || 0;
-            const ocup = data.ocupado || 0;
-            const mant = data.mantenimiento || 0;
+            const disp = datos.disponible || 0;
+            const ocup = datos.ocupado || 0;
+            const mant = datos.mantenimiento || 0;
 
-            chartEstado = new Chart(ctx, {
+            instanciaEstado = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     labels: ['Disponible', 'Ocupado', 'Mantenimiento'],
@@ -183,29 +178,28 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
             });
         }
 
-        function renderBarChart(data) {
-            const ctx = document.getElementById('chartTop').getContext('2d');
-            if(chartTop) chartTop.destroy();
+        function renderizarBarras(datos) {
+            const ctx = document.getElementById('graficoTop').getContext('2d');
+            if(instanciaTop) instanciaTop.destroy();
 
-            chartTop = new Chart(ctx, {
+            instanciaTop = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: data.labels,
+                    labels: datos.labels,
                     datasets: [{
                         label: 'Cantidad de veces reservado',
-                        data: data.data,
+                        data: datos.data,
                         backgroundColor: '#6610f2'
                     }]
                 },
                 options: { 
                     maintainAspectRatio: false, 
                     responsive: true,
-                    indexAxis: 'y' // Barras horizontales
+                    indexAxis: 'y'
                 }
             });
         }
 
-        // Cargar al inicio
         $(document).ready(function() {
             cargarDatos();
         });
